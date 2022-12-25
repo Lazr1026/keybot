@@ -14,5 +14,5 @@ ATM it can only do basic stuff (ie. ban), but a "purge" command is planned.
 Of course! Pull Requests are open to anyone. If you want to report a bug, you can do so in the [Issues](https://github.com/Lazr1026/keybot/issues) tab.
 
 ## Credits
-[Lazr1026](https://github.com/Lazr1026)
+[Lazr1026](https://github.com/Lazr1026)  
 [nicl83](https://github.com/nicl83) (helped me when I was big dumb)
