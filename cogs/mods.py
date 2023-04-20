@@ -25,7 +25,7 @@ class mods(commands.Cog):
             await ctx.channel.send(selfcommand)
             return
         elif member == None:
-            f"{member} doesnt exist or is not in the server")
+            f"{member} doesnt exist or is not in the server"
             return
         else:
             await member.send(message)
