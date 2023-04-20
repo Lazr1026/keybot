@@ -40,14 +40,14 @@ class mods(commands.Cog):
             await ctx.channel.send(selfcommand)
             return
 
-        probateRole = member.guild.get_role(1056074333648338954)
+        probate_role = member.guild.get_role(1056074333648338954)
         if probateRole is None:
             await ctx.channel.send("Probate role not found.")
             return
         
         else:
             try:
-                await member.edit(roles=[probateRole])
+                await member.edit(roles=[probate_role])
                 await ctx.channel.send(f'{member} has been probated.')
             except Exception as e:
                 await ctx.channel.send(f'Exception encountered while probating: {e}')
@@ -62,14 +62,14 @@ class mods(commands.Cog):
         elif member is ctx.message.author:
             await ctx.channel.send("Either you are stupid enough to try this or you had no idea what would happen. Most likely the former.")
 
-        virginRole = member.guild.get_role(918319461688295484)
+        virginrole = member.guild.get_role(918319461688295484)
         if virginRole == None:
             await ctx.channel.send("Virgin role not found.")
             return
 
         else:
             try:
-                await member.edit(roles=[virginRole])
+                await member.edit(roles=[virginrole])
                 await ctx.channel.send(f'{member} has been released from the shadow realm.')
             except Exception as e:
                 await ctx.channel.send(f'Exception encountered while unprobating: {e}')
