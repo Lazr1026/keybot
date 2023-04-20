@@ -18,16 +18,19 @@ class mods(commands.Cog):
     async def ban(self, ctx, member: discord.User = None, *, reason = None):
         '''Ban Users. Admin+'''
         message = f"You have been banned from {ctx.guild.name} for the following reason:\n" + reason
-        if not member:
-            await ctx.channel.send(nouser)
-        elif member == ctx.message.author:
-            await ctx.channel.send(selfcommand)
-        elif member == None:
-            f"{member} doesnt exist or is not in the server"
-        else:
-            await member.send(message)
-            await ctx.guild.ban(member, reason=reason, delete_message_days=0)
-            await ctx.channel.send(f"{member} has been b&. 👍")
+        try:
+            if not member:
+                await ctx.channel.send(nouser)
+            elif member == ctx.message.author:
+                await ctx.channel.send(selfcommand)
+            elif member == None:
+                f"{member} doesnt exist or is not in the server"
+            else:
+                await member.send(message)
+                await ctx.guild.ban(member, reason=reason, delete_message_days=0)
+                await ctx.channel.send(f"{member} has been b&. 👍")
+        except Exception as e:
+            await ctx.channel.send(f'{e}')
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True)
