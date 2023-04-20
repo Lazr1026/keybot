@@ -15,7 +15,7 @@ class mods(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.User = None, reason = None):
+    async def ban(self, ctx, *, member: discord.User = None, reason = None):
         '''Ban Users. Admin+'''
         if not member:
             await ctx.channel.send(nouser)
