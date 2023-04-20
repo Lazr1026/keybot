@@ -4,60 +4,47 @@ import asyncio
 import discord
 from discord.ext import commands
 
+# Discord intents
 intents = discord.Intents.default()
 intents.message_content = True
 
+# Setup stuff
 client = discord.Client(intents=intents)
 client = commands.Bot(command_prefix=("."), intents=intents)
 client.help_command = commands.DefaultHelpCommand(dm_help=True)
 
+# Load the tokenfile
 home_path = os.path.dirname(os.path.realpath(__file__))
 with open(home_path + "/token") as tokenfile:
     token = tokenfile.read()
 
-@commands.command()
-async def on_message(self, message: discord.Message):
-    if message.author.name == "GitHub" and message.author.discriminator == "0000":
-        if message.embeds[0].title.startswith("[keybot:master]"):
-            await self.bot.change_presence(status=discord.Status.do_not_disturb)
-            await message.add_reaction("\U0001F6D1")
-
-            subprocess.call(["git", "pull", "origin", "master"])
-            if os.name == "posix":
-                main_path = f'[\'{sys.argv[0]}\']'
-            elif os.name == "nt":
-                main_path = f'[\'"{sys.argv[0]}"\']'
-            main_path = ast.literal_eval(main_path)
-
-            await message.add_reaction("\U0000267B")
-
-            if os.name == "posix":
-                os.execv(sys.executable, ["python3"] + main_path)
-            if os.name == "nt":
-                os.execv(sys.executable, ["python"] + main_path)
-
+# Ready message
 @client.event
 async def on_ready():
     print('Ready.')
     print(f'We have logged in as {client.user}')
 
+# Load a module
 @client.command()
 @commands.has_any_role(924852557262770217, 918316103975977041)
 async def load(ctx, extension):
     await client.load_extension(f'cogs.{extension}')
     await ctx.send(f'Loaded {extension}')
 
+# Unload a module
 @client.command()
 @commands.has_any_role(924852557262770217, 918316103975977041)
 async def unload(ctx, extension):
     await client.unload_extension(f'cogs.{extension}')    
     await ctx.send(f'Unloaded {extension}')
 
+# Load all modules in the cogs folder
 async def load_extensions():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             await client.load_extension(f'cogs.{filename[:-3]}')
         
+# Main function
 async def main():
     async with client:
         await load_extensions()
