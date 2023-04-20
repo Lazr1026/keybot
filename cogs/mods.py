@@ -18,19 +18,14 @@ class mods(commands.Cog):
     async def ban(self, ctx, member: discord.User = None, *, reason = None):
         '''Ban Users. Admin+'''
         message = f"You have been banned from {ctx.guild.name} for the following reason:\n" + reason
-        try:
-            if not member:
-                await ctx.channel.send(nouser)
-            elif member == ctx.message.author:
-                await ctx.channel.send(selfcommand)
-            elif member == None:
-                f"{member} doesnt exist or is not in the server"
-            else:
-                await member.send(message)
-                await ctx.guild.ban(member, reason=reason, delete_message_days=0)
-                await ctx.channel.send(f"{member} has been b&. 👍")
-        except Exception as e:
-            await ctx.channel.send(f'{e}')
+        if not member:
+            await ctx.channel.send(nouser)
+        elif member == ctx.message.author:
+            await ctx.channel.send(selfcommand)
+        else:
+            await member.send(message)
+            await ctx.guild.ban(member, reason=reason, delete_message_days=0)
+            await ctx.channel.send(f"{member} has been b&. 👍")
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True)
@@ -39,8 +34,6 @@ class mods(commands.Cog):
             await ctx.channel.send(nouser)
         elif member == ctx.message.author:
             await ctx.channel.send(selfcommand)
-        elif member == None:
-            await ctx.channel.send("Member doesnt exist or is not banned.")
         else:
             await ctx.guild.unban(member)
             await ctx.channel.send("Unbanned User.")
