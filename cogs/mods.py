@@ -20,13 +20,10 @@ class mods(commands.Cog):
         message = f"You have been banned from {ctx.guild.name} for the following reason:\n" + reason
         if not member:
             await ctx.channel.send(nouser)
-            return
         elif member == ctx.message.author:
             await ctx.channel.send(selfcommand)
-            return
         elif member == None:
             f"{member} doesnt exist or is not in the server"
-            return
         else:
             await member.send(message)
             await ctx.guild.ban(member, reason=reason, delete_message_days=0)
@@ -37,13 +34,10 @@ class mods(commands.Cog):
     async def unban(self, ctx, member: discord.User = None):
         if not member:
             await ctx.channel.send(nouser)
-            return
         elif member == ctx.message.author:
             await ctx.channel.send(selfcommand)
-            return
         elif member == None:
             await ctx.channel.send("Member doesnt exist or is not banned.")
-            return
         else:
             await ctx.guild.unban(member)
             await ctx.channel.send("Unbanned User.")
