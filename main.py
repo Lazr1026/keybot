@@ -2,6 +2,7 @@ print('Loading...')
 import os
 import asyncio
 import discord
+import subprocess
 from discord.ext import commands
 
 # Discord intents
@@ -37,6 +38,13 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     await client.unload_extension(f'cogs.{extension}')    
     await ctx.send(f'Unloaded {extension}')
+
+# Update the bot
+@client.command()
+@commands.has_any_role(924852557262770217, 918316103975977041)
+async def update(ctx):
+    await ctx.send("Updating code. The bot will be down for roughly 5 seconds.")
+    subprocess.run(['bash' + home_path + 'keybot/update.sh'])
 
 # Load all modules in the cogs folder
 async def load_extensions():
