@@ -29,6 +29,12 @@ class mods(commands.Cog):
         await ctx.channel.send(f"{member} has been b&. 👍")
 
     @commands.command()
+    @commands.has_guild_permissions(ban_members=True)
+    async def unban(self, ctx, userId: discord.User.id):
+        user = get(id=userId)
+        await ctx.guild.unban(user)
+
+    @commands.command()
     @commands.has_guild_permissions(manage_roles=True)
     async def probate(self, ctx, member: discord.Member = None):
         '''Locks a user to a single channel. Mods+'''
