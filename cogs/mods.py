@@ -30,7 +30,7 @@ class mods(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(ban_members=True)
-    async def unban(self, ctx, userId: discord.User.id):
+    async def unban(self, ctx, member: discord.User = None):
         if not member:
             await ctx.channel.send(nouser)
             return
@@ -38,8 +38,7 @@ class mods(commands.Cog):
             await ctx.channel.send(selfcommand)
             return
         else:
-            user = get(id=userId)
-            await ctx.guild.unban(user)
+            await ctx.guild.unban(member)
             await ctx.channel.send("Unbanned User.")
 
     @commands.command()
