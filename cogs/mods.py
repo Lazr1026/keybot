@@ -31,8 +31,16 @@ class mods(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members=True)
     async def unban(self, ctx, userId: discord.User.id):
-        user = get(id=userId)
-        await ctx.guild.unban(user)
+        if not member:
+            await ctx.channel.send(nouser)
+            return
+        elif member == ctx.message.author:
+            await ctx.channel.send(selfcommand)
+            return
+        else:
+            user = get(id=userId)
+            await ctx.guild.unban(user)
+            await ctx.channel.send("Unbanned User.")
 
     @commands.command()
     @commands.has_guild_permissions(manage_roles=True)
